@@ -1,4 +1,4 @@
-from db import init_db, store_email
+from db import init_db, store_email, get_unsummarised_emails
 init_db()
 
 from flask import Flask, request, jsonify
@@ -49,3 +49,11 @@ def receive_email():
         app.logger.exception("Error processing request")
         return jsonify({"error": str(e)}), 500
 
+@app.route("/emails/unsummarised", methods=["GET"])
+def get_unsummarised():
+    try:
+        emails = get_unsummarised_emails()
+        return jsonify({"emails": emails})
+    except Exception as e:
+        app.logger.exception("Failed to fetch unsummarised emails")
+        return jsonify({"error": str(e)}), 500
