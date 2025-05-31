@@ -31,6 +31,7 @@ def receive_email():
         )
 
         summary = response.choices[0].message.content.strip()
+        app.logger.info(f"SUMMARY: {summary}")
         return jsonify({"summary": summary})
 
     except Exception as e:
