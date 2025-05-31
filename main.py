@@ -23,6 +23,14 @@ def receive_email():
         subject = data.get("Subject", None)
         content = data.get("Content", None)
 
+        from datetime import datetime
+        store_email(
+            source="Zapier",  # or data.get("From") if you want to extract it later
+            subject=subject,
+            content=content,
+            timestamp=datetime.utcnow().isoformat()
+        )
+
         if not subject or not content:
             return jsonify({"error": "Missing subject or content"}), 400
 
@@ -41,6 +49,3 @@ def receive_email():
         app.logger.exception("Error processing request")
         return jsonify({"error": str(e)}), 500
 
-if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 10000))
-    app.run(host="0.0.0.0", port=port)
