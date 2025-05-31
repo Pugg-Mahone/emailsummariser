@@ -4,6 +4,17 @@ init_db()
 from flask import Flask, request, jsonify
 import openai
 import os
+
+import os
+
+# ⚠️ WARNING: This deletes your current database
+if os.path.exists("emails.db"):
+    os.remove("emails.db")
+    print("Deleted old emails.db")
+
+
+
+
 import logging
 
 logging.basicConfig(level=logging.INFO)
