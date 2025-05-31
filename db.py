@@ -11,10 +11,12 @@ def init_db():
                 timestamp TEXT NOT NULL,
                 source TEXT,
                 subject TEXT,
-                content TEXT
+                content TEXT,
+                summarised INTEGER DEFAULT 0
             )
         """)
         conn.commit()
+
 
 def store_email(source, subject, content, timestamp):
     with sqlite3.connect(DB_NAME) as conn:
