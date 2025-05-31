@@ -1,3 +1,6 @@
+from db import init_db, store_email
+init_db()
+
 from flask import Flask, request, jsonify
 import openai
 import os
